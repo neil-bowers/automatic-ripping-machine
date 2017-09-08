@@ -18,7 +18,7 @@ TIMESTAMP=$5
 	if [ "$HAS_NICE_TITLE" = true ]; then
 		echo "transcoding with a nice title" >> "$LOG"
 		DEST="${ARMPATH}/${LABEL}"
-		echo "dest ${DEST} variable created"
+		echo "dest ${DEST} variable created" >> "$LOG"
 		if [ -d "$DEST" ]; then
 			echo "directory already exists... adding timestamp" >> "$LOG"
 			DEST="${ARMPATH}/${LABEL}_${TIMESTAMP}"
@@ -58,7 +58,7 @@ TIMESTAMP=$5
 			SEC=$(( TIME / 1000 )) >> "$LOG"
 			echo "Title length is $SEC seconds." >> "$LOG"
 			if [ $SEC -gt "$MINLENGTH" ]; then
-				echo "HandBraking title $TITLE"
+				echo "HandBraking title $TITLE" >> "$LOG"
 				# shellcheck disable=SC2086
 				$HANDBRAKE_CLI -i "$SRC" -o "$DEST/$LABEL-$TITLE.$DEST_EXT" --min-duration="$MINLENGTH" -t "$TITLE" --preset="$HB_PRESET" $HB_ARGS 2  >> "$LOG"
 

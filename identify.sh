@@ -62,11 +62,11 @@ if [ "$ID_FS_TYPE" == "udf" ]; then
 				GET_TITLE_RESULT=$?
 
 				if [ $GET_TITLE_RESULT = 0 ]; then
-					echo "Obtained Title $GET_TITLE_OUTPUT"
+					echo "Obtained Title $GET_TITLE_OUTPUT" >> "$LOG"
 					HAS_NICE_TITLE=true
 					VIDEO_TITLE=${GET_TITLE_OUTPUT}
 				else
-					echo "failed to get title $GET_TITLE_OUTPUT"
+					echo "failed to get title $GET_TITLE_OUTPUT" >> "$LOG"
 					HAS_NICE_TITLE=false
 					VIDEO_TITLE=${ID_FS_LABEL}
 				fi
@@ -83,9 +83,9 @@ if [ "$ID_FS_TYPE" == "udf" ]; then
 				if [[ $VTYPE =~ .*#.* ]]; then
 					VIDEO_TYPE=$(echo "$VTYPE" | cut -f1 -d#)
 					NEW_YEAR=$(echo "$VTYPE" | cut -f2 -d#)
-					echo "VIDEO_TYPE is $VIDEO_TYPE and NEW_YEAR is $NEW_YEAR"
+					echo "VIDEO_TYPE is $VIDEO_TYPE and NEW_YEAR is $NEW_YEAR" >> "$LOG"
 					VIDEO_TITLE="$(echo "$VIDEO_TITLE" | cut -f1 -d\()($NEW_YEAR)"
-					echo "Year mismatch found.  New video title is $VIDEO_TITLE"
+					echo "Year mismatch found.  New video title is $VIDEO_TITLE" >> "$LOG"
 				else
 					VIDEO_TYPE="$VTYPE"
 				fi
@@ -94,9 +94,9 @@ if [ "$ID_FS_TYPE" == "udf" ]; then
 			fi
 
 			echo "got to here"
-			echo "HAS_NICE_TITLE is ${HAS_NICE_TITLE}"
-			echo "video title is now ${VIDEO_TITLE}"
-			echo "video type is ${VIDEO_TYPE}"
+			echo "HAS_NICE_TITLE is ${HAS_NICE_TITLE}" >> "$LOG"
+			echo "video title is now ${VIDEO_TITLE}" >> "$LOG"
+			echo "video type is ${VIDEO_TYPE}" >> "$LOG"
 
 			umount "/mnt/$DEVNAME"
 			/opt/arm/video_rip.sh "$VIDEO_TITLE" "$HAS_NICE_TITLE" "$VIDEO_TYPE" "$LOG"
