@@ -7,3 +7,5 @@ test.py
 *.sh~
 Branch_Scope_Sanatization.txt
 *~
+*_test.sh
+*_test.py
